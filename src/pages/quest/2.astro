@@ -1,0 +1,353 @@
+---
+import Layout from "../../layouts/Layout.astro";
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith("/") ? rawBase : rawBase + "/";
+
+const buttons = Array.from({ length: 50 }, (_, i) => i + 1);
+---
+
+<Layout
+  title="クエスト 02 見えないフォーカス"
+  description="大量に並んだボタンの中から、指定されたボタンをキーボードだけで探して押せばクエスト完了です。しかし、フォーカスインジケータをわざと非表示にしています。フォーカスインジケータが見えないことで、どれだけ操作が困難になるか体験してみましょう。"
+>
+  <div class="bg-white">
+    <div class="bg-gray-700 text-white">
+      <div class="max-w-7xl mx-auto p-4">
+        <ul class="flex items-center justify-between gap-4">
+          <li>
+            <a href={`${base}quest/1/`} class="inline-flex items-center gap-2 text-sm hover:underline">
+              <span aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
+                </svg>
+              </span>
+              前のクエスト
+            </a>
+          </li>
+          <li>
+            <a href={base} class="inline-flex items-center gap-2 text-sm hover:underline">
+              トップページへ
+              <span aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"></path>
+                </svg>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-5xl mx-auto px-4 py-8 space-y-4">
+      <div class="flex items-center gap-4 flex-wrap">
+        <span class="inline-block bg-blue-50 text-blue-900 text-sm font-semibold px-3 py-1 rounded-full">達成基準 2.4.7 フォーカスの可視化</span>
+      </div>
+      <p>
+        スタートボタンを押すと、ランダムに番号が指定されます。クエストエリア内をキーボードだけで操作して、指定された番号ボタンを押してください。
+        マウス操作であれば恐らく簡単にできると思います。しかし、クエストエリア内はキーボードのフォーカスがどこに当たっているのかを示す「フォーカスインジケータ」を意図的に非表示にしています。
+      </p>
+      <p>フォーカス位置がわからない状態で、あなたは指定のホタンを何秒で押せますか？</p>
+      <ul class="space-y-2 list-disc ml-6">
+        <li>マウス（ポインティングデバイス）を窓から投げ捨てて、キーボードのみで操作しましょう</li>
+        <li>以下のクエストエリアにキーボード操作で入り、「クエスト開始」ボタンを押すと、押すべきボタンの番号が指定され、カウントダウンが始まります</li>
+        <li>キーボード操作だけで指定の番号のボタンにたどり着き、ボタンをばクエスト完了です</li>
+        <li>Tab キーでキーボードフォーカスを移動し、Enter または Space で要素を操作できます</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-4 py-8">
+    <!-- ========== ここからクエストエリア ========== -->
+    <div id="quest-stage" class="max-w-7xl mx-auto my-8 py-8 px-4 overflow-hidden border-4 border-red-400" tabindex="0">
+      <div class="text-center font-semibold">
+        <h2>クエストエリア（このエリア内では、意図的にアクセシビリティ上の問題を発生させています）</h2>
+      </div>
+      <div class="mt-8 flex justify-center items-center" id="controls">
+        <button id="start-round1-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors" onclick="startRound1()">クエスト開始</button>
+      </div>
+      <div class="p-6 mt-8 bg-white">
+        <div id="button-grid" class="grid grid-cols-10 gap-2">
+          {
+            buttons.map((n) => (
+              <button
+                class="quest-btn w-full aspect-square bg-white border-2 border-gray-300 rounded-sm font-mono font-bold hover:bg-blue-50 hover:border-blue-400 transition-colors"
+                data-number={n}
+                aria-label={`ボタン ${n}`}
+              >
+                {n}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+      <!-- ステータスバー -->
+      <div class="mt-8 flex flex-wrap justify-center gap-6 items-center" aria-live="polite" aria-atomic="true">
+        <div class="flex items-center gap-2">
+          <span>経過時間</span>
+          <span id="timer-display" class="font-mono font-bold">0.0秒</span>
+        </div>
+      </div>
+    </div>
+    <!-- ========== ここまでクエストエリア ========== -->
+  </div>
+
+  <!-- 成功モーダル（初期は非表示）-->
+  <dialog id="success-modal" class="fixed inset-0 m-auto z-50" aria-labelledby="success-heading">
+    <div class="bg-white rounded-md shadow-2xl max-w-lg w-full p-8 text-center">
+      <div class="text-6xl" aria-hidden="true">🎉</div>
+      <h2 id="success-heading" class="text-2xl font-bold text-gray-900 mt-4" tabindex="-1">クエスト完了！</h2>
+      <p class="text-lg text-gray-700 mt-4">お疲れさまです。クエストが完了しました。</p>
+      <div id="success-input-method" class="text-sm mt-4"></div>
+      <div id="success-method" class="mt-4">
+        かかった時間：<span class="font-mono font-bold" id="quest-time">0</span> 秒
+      </div>
+      <div class="mt-6">
+        <button onclick="closeSuccessModal()" class="bg-indigo-700 hover:bg-indigo-800 text-white font-semibold px-6 py-3 rounded-lg transition-colors"> 解説を読む </button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- 解説セクション（初期は非表示）-->
+  <section id="explanation" class="hidden max-w-5xl mx-auto px-4 py-12">
+    <div class="bg-white border border-gray-200 p-8">
+      <h2 id="explanation-heading" class="text-2xl font-bold" tabindex="-1">解説： 何が問題だったのか</h2>
+      <div class="mt-6 space-y-4">
+        <p>
+          このクエストでは、キーボードでの操作時に、フォーカスがどこにあるかを示す「フォーカスインジケータ」が非表示になることで、キーボードを使用しているユーザーにどのような不利益を与えるのかを体験していただきました。
+        </p>
+        <p>
+          キーボード操作時、フォーカスがどこにあるのかという情報はユーザーにとって非常に重要な情報です。これがないことで、ボタンやリンクが多いウェブページではユーザビリティが著しく低下するだけでなく、場合によってはユーザーが目的を達成できないかもしれません。
+        </p>
+        <p>このクエストではフォーカスが可視化されないボタンを実装するため、以下の実装をしています。</p>
+        <ul class="space-y-2 list-disc ml-6">
+          <li>CSSにおいて、<code>:focus</code> 疑似クラスを使用し、<code>outline: none</code> を強制</li>
+          <li>その他、フォーカスインジケータとなりうる視覚的変化もしないようにCSSを設定</li>
+        </ul>
+        <p>
+          実際の制作現場でも、全要素に <code>outline: none</code> を指定してしまうような例は、発生しやすい実装ミスとして挙げられます。特にサードパーティのリセットCSSや、ノーマライズCSSを使用した際に発生し、気がつかないということもよくありますので注意しましょう。
+        </p>
+        <p>フォーカスの可視化が行われていない場合、「<strong>達成基準 2.4.7 フォーカスの可視化</strong>」を満たさなくなります。</p>
+        <p>
+          また、フォーカスの可視化自体は行われていても、例えば固定表示のヘッダーやフッターなどがフォーカスされた要素に完全に重なって見えなくなってしまう場合、「<strong
+            >達成基準 2.4.11 隠されないフォーカス（最低限）</strong
+          >」を満たさなくなります。こちらも合わせて注意しましょう。
+        </p>
+        <p>それぞれの達成基準を理解するため、以下のリンクが参考になります。</p>
+        <ul class="space-y-2 list-disc ml-6">
+          <li>
+            <a class="underline hover:text-blue-900" href="https://waic.jp/translations/WCAG22/Understanding/focus-visible" target="_blank">
+              達成基準 2.4.7 フォーカスの可視化（WCAG 2.2 解説書 日本語訳）
+            </a>
+          </li>
+          <li>
+            <a class="underline hover:text-blue-900" href="https://waic.jp/translations/WCAG22/Understanding/focus-not-obscured-minimum" target="_blank">
+              達成基準 2.4.11 隠されないフォーカス（最低限）（WCAG 2.2 解説書 日本語訳）
+            </a>
+          </li>
+        </ul>
+        <p>
+          その他、適合レベル AAA ですが、関連する達成基準として「達成基準 2.4.12 隠されないフォーカス（高度）」および「達成基準 2.4.13 フォーカスの外観」があります。合わせて意識できるとよいでしょう。
+        </p>
+        <p>以下のリンクが参考になります。</p>
+        <ul class="space-y-2 list-disc ml-6">
+          <li>
+            <a class="underline hover:text-blue-900" href="https://waic.jp/translations/WCAG22/Understanding/focus-not-obscured-enhanced" target="_blank">
+              達成基準 2.4.12 隠されないフォーカス（高度）（WCAG 2.2 解説書 日本語訳）
+            </a>
+          </li>
+          <li>
+            <a class="underline hover:text-blue-900" href="https://waic.jp/translations/WCAG22/Understanding/focus-appearance" target="_blank">
+              達成基準 2.4.13 フォーカスの外観（WCAG 2.2 解説書 日本語訳）
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="mt-12 space-y-6">
+        <h3 class="text-xl font-bold">ポイント</h3>
+        <div class="flex gap-4">
+          <div class="shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
+            </svg>
+          </div>
+          <div class="space-y-4">
+            <h4 class="font-semibold">
+              <code>outline: none</code> がCSSで指定されたUI
+            </h4>
+            <p>
+              ボタンやリンクなど、フォーカス可能な要素に対してCSSで <code>outline: none</code> が指定されている、かつ制作者側でフォーカスインジケータの指定がない場合、フォーカスが可視化されないUIパーツが発生します。
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"></path>
+            </svg>
+          </div>
+          <div class="space-y-4">
+            <h4 class="font-semibold">正しい実装</h4>
+            <p>まず最低限、<code>outline: none</code> を指定しないことが重要です。もし指定する場合は、制作者側でフォーカスインジケータの実装を行いましょう。</p>
+            <p>フォーカスインジケータの独自実装時にも注意が必要で、例えばリンクテキストの色だけが変わるような実装はこの達成基準を満たすとは言えません。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-gray-200">
+        <ul class="flex items-center justify-between gap-4 flex-col sm:flex-row">
+          <li class="w-full flex justify-center sm:justify-start">
+            <a href="./" class="flex w-full max-w-60 gap-2 items-center justify-center px-4 py-3 border border-transparent text-base font-bold rounded-md text-white bg-indigo-700 hover:bg-indigo-800">
+              <span aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m9 9 6-6m0 0 6 6m-6-6v12a6 6 0 0 1-12 0v-3"></path>
+                </svg>
+              </span>
+              もう一度クエストを開始
+            </a>
+          </li>
+          <li class="w-full flex justify-center sm:justify-end">
+            <a class="flex w-full max-w-60 gap-2 items-center justify-center px-4 py-3 border border-transparent text-base font-bold rounded-md text-white bg-gray-500">
+              次のクエスト
+              <span aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"></path>
+                </svg>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* クエスト開始と同時にフォーカスインジケータを非表示にする */
+  #button-grid.focus-hidden .quest-btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: #d1d5db !important;
+    background-color: white !important;
+  }
+  #button-grid.focus-hidden .quest-btn:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  #button-grid .quest-btn.success-btn {
+    outline: 2px solid #dc2626;
+    outline-offset: 2px;
+  }
+</style>
+
+<script>
+  let targetNumber = 0;
+  let startTime = 0;
+  let timerInterval: ReturnType<typeof setInterval> | null = null;
+  let questActive = false;
+  let isKeyboardUser = false;
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Tab" || e.key === "Enter" || e.key === " ") {
+      isKeyboardUser = true;
+    }
+  });
+
+  document.addEventListener("pointerdown", () => {
+    isKeyboardUser = false;
+  });
+
+  function getRandomTarget(): number {
+    return Math.floor(Math.random() * 40) + 6; // 6〜45
+  }
+
+  function formatTime(ms: number): string {
+    return (ms / 1000).toFixed(1);
+  }
+
+  function startTimer() {
+    startTime = Date.now();
+    timerInterval = setInterval(() => {
+      const el = document.getElementById("timer-display");
+      if (el) el.textContent = formatTime(Date.now() - startTime);
+    }, 100);
+  }
+
+  function stopTimer(): number {
+    if (timerInterval) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+    return Date.now() - startTime;
+  }
+
+  // ボタンクリックイベントの設定
+  document.querySelectorAll<HTMLButtonElement>(".quest-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (!questActive) return;
+      const num = parseInt(btn.dataset.number ?? "0");
+      if (num === targetNumber) {
+        handleSuccess(btn);
+      }
+    });
+  });
+
+  function handleSuccess(btn: HTMLButtonElement) {
+    const elapsed = stopTimer();
+    questActive = false;
+
+    btn.classList.add("success-btn");
+    document.getElementById("button-grid")?.classList.remove("focus-hidden");
+
+    const questTimeEl = document.getElementById("quest-time");
+    if (questTimeEl) questTimeEl.textContent = formatTime(elapsed);
+
+    const inputMethodEl = document.getElementById("success-input-method");
+    if (inputMethodEl) {
+      inputMethodEl.innerHTML = isKeyboardUser
+        ? `<p class="text-green-800 font-semibold">キーボードで達成しました！</p>
+           <p class="mt-1">キーボードで指定のボタンを探し出しましたね！</p>`
+        : `<p class="text-orange-800 font-semibold">マウスで達成しました。</p>
+           <p class="mt-1">次はぜひキーボードだけで再挑戦してみましょう。</p>`;
+    }
+
+    const modal = document.getElementById("success-modal") as HTMLDialogElement | null;
+    if (modal) {
+      modal.showModal();
+      (document.getElementById("success-heading") as HTMLElement | null)?.focus();
+    }
+  }
+
+  (window as any).startRound1 = function () {
+    targetNumber = getRandomTarget();
+
+    const timerDisplay = document.getElementById("timer-display");
+    if (timerDisplay) timerDisplay.textContent = "0.0秒";
+
+    document.getElementById("button-grid")?.classList.add("focus-hidden");
+
+    const controls = document.getElementById("controls");
+    if (controls) {
+      controls.innerHTML = `<p class="flex justify-center items-center gap-4"><strong class="font-mono text-4xl font-bold text-red-800">${targetNumber}</strong><span>番のボタンを押して！</span></p>`;
+    }
+
+    questActive = true;
+    startTimer();
+    document.querySelector<HTMLButtonElement>(".quest-btn")?.focus();
+  };
+
+  // ダイアログを閉じるのと、解説セクションの表示
+  (window as any).closeSuccessModal = function () {
+    const modal = document.getElementById("success-modal");
+    const explanation = document.getElementById("explanation");
+    const explanationHeading = document.getElementById("explanation-heading");
+    if (modal instanceof HTMLDialogElement) {
+      modal.close();
+    }
+    if (explanation) {
+      explanation.classList.remove("hidden");
+      explanationHeading?.focus();
+    }
+  };
+</script>

@@ -1,17 +1,69 @@
 ---
-
+import Layout from "../layouts/Layout.astro";
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith("/") ? rawBase : rawBase + "/";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+  <div class="max-w-5xl mx-auto px-4 py-16">
+    <div class="">
+      <p class="text-xl text-gray-800 max-w-2xl mx-auto leading-relaxed">
+        WCAG の特定の達成基準を意図的に満たさないウェブコンテンツを体験することで、アクセシビリティに問題があるウェブコンテンツの不便さを体験してみましょう。
+      </p>
+    </div>
+
+    <div class="mt-16 bg-indigo-50 border border-indigo-200 rounded-md p-4 sm:p-6">
+      <h2 class="text-lg font-semibold text-indigo-900 flex items-center gap-2">
+        <span aria-hidden="true">💡</span>
+        このサイトの使い方
+      </h2>
+      <ul class="text-indigo-900 space-y-2 list-disc mt-4 ml-6">
+        <li>各ページ（クエストと呼んでいます）には意図的に WCAG における特定の達成基準を満たさず、アクセシビリティ上の問題を組み込んであります</li>
+        <li>各クエストでは、指定の方法で画面を操作して達成するタスクが与えられますが、アクセシビリティ上の問題から恐らく苦戦するでしょう</li>
+        <li>タスクを完了したら、何が問題だったかの解説を読んで学んでみてください</li>
+        <li>各クエストを体験することで、アクセシビリティ上の問題に気がつくきっかけとしていただければ幸いです</li>
+        <li>キーボード操作に関係するクエストが多いので、パソコンからの利用をお勧めします</li>
+      </ul>
+    </div>
+
+    <div class="mt-16">
+      <h2 class="text-2xl font-bold">クエスト一覧</h2>
+      <div class="mt-8 grid md:grid-cols-2 gap-6">
+        <a href={`${base}quest/1/`} class="group block bg-white rounded-md space-y-4 border border-gray-200 p-6 hover:border-blue-400 hover:shadow-lg transition-all no-underline">
+          <h3 class="flex items-center gap-2 text-lg font-bold group-hover:text-blue-900 transition-colors">
+            <span class="text-sm rounded-sm bg-gray-900 text-white px-3 py-1">クエスト 01</span>
+            キーボード操作できないボタン
+          </h3>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="inline-block bg-blue-50 text-blue-900 text-sm font-semibold px-3 py-1 rounded-full">達成基準 2.1.1 キーボード</span>
+            <span class="inline-block bg-blue-50 text-blue-900 text-sm font-semibold px-3 py-1 rounded-full">達成基準 4.1.2 名前 (name) ・役割 (role) 及び値 (value)</span>
+          </div>
+          <p class="text-sm leading-relaxed">
+            キーボードだけで操作して、クエスト完了ボタンを押してください。 しかし、わかりやすい場所にあるボタンはキーボードで操作できなくしています。
+            どこかに別の方法が隠されていますので、それを探し出せるでしょうか？
+          </p>
+          <div class="flex items-center gap-4 text-sm text-gray-800">
+            <span>難易度: <span role="img" aria-label="3段階中の「1」">★☆☆</span></span>
+            <span>所要時間: 1〜3分</span>
+          </div>
+        </a>
+
+        <a href={`${base}quest/2/`} class="group block bg-white rounded-md space-y-4 border border-gray-200 p-6 hover:border-blue-400 hover:shadow-lg transition-all no-underline">
+          <h3 class="flex items-center gap-2 text-lg font-bold group-hover:text-blue-900 transition-colors">
+            <span class="text-sm rounded-sm bg-gray-900 text-white px-3 py-1">クエスト 02</span>
+            見えないフォーカス
+          </h3>
+          <span class="inline-block bg-blue-50 text-blue-900 text-sm font-semibold px-3 py-1 rounded-full">達成基準 2.4.7 フォーカスの可視化</span>
+          <p class="text-sm leading-relaxed">
+            大量に並んだボタンの中から、指定されたボタンをキーボードだけで探して押せばクエスト完了です。しかし、フォーカスインジケータをわざと非表示にしています。
+            フォーカスインジケータが見えないことで、どれだけ操作が困難になるか体験してみましょう。
+          </p>
+          <div class="flex items-center gap-4 text-sm text-gray-800">
+            <span>難易度: <span role="img" aria-label="3段階中の「2」">★★☆</span></span>
+            <span>所要時間: 3〜5分</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

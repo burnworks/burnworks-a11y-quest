@@ -1,0 +1,655 @@
+---
+import Layout from "../../layouts/Layout.astro";
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith("/") ? rawBase : rawBase + "/";
+---
+
+<Layout
+  title="クエスト 01 キーボード操作できないボタン"
+  description="キーボードだけで操作して、クエスト完了ボタンを押してください。しかし、わかりやすい場所にあるボタンはキーボードで操作できなくしています。どこかに別の方法が隠されていますので、それを探し出せるでしょうか"
+>
+  <div class="bg-white">
+    <div class="bg-gray-700 text-white">
+      <div class="max-w-7xl mx-auto p-4">
+        <ul class="flex items-center justify-between gap-4">
+          <li>
+            <a href={base} class="inline-flex items-center gap-2 text-sm hover:underline">
+              <span aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
+                </svg>
+              </span>
+              トップページに戻る
+            </a>
+          </li>
+          <li>
+            <a href={`${base}quest/2/`} class="inline-flex items-center gap-2 text-sm hover:underline">
+              次のクエスト
+              <span aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"></path>
+                </svg>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-5xl mx-auto px-4 py-8 space-y-4">
+      <div class="flex items-center gap-4 flex-wrap">
+        <span class="inline-block bg-blue-50 text-blue-900 text-sm font-semibold px-3 py-1 rounded-full">達成基準 2.1.1 キーボード</span>
+        <span class="inline-block bg-blue-50 text-blue-900 text-sm font-semibold px-3 py-1 rounded-full">達成基準 4.1.2 名前 (name) ・役割 (role) 及び値 (value)</span>
+      </div>
+      <p>
+        クエストエリア内をキーボードだけで操作して、「クエスト完了」ボタンを押してください。しかし、わかりやすい場所にあるボタンはキーボードで操作できなくしています。
+        どこかに別の方法が隠されていますので、それを探し出せるでしょうか？
+      </p>
+      <ul class="space-y-2 list-disc ml-6">
+        <li>マウス（ポインティングデバイス）を窓から投げ捨てて、キーボードのみで操作しましょう</li>
+        <li>以下のクエストエリアにキーボード操作で入り、「クエスト完了」ボタンを探し出して押せばクエスト完了です</li>
+        <li>Tab キーでキーボードフォーカスを移動し、Enter または Space で要素を操作できます</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ========== ここからクエストエリア ========== -->
+  <div class="max-w-7xl mx-auto my-8 py-8 px-4 overflow-hidden border-4 border-red-400" tabindex="0">
+    <div class="text-center font-semibold">
+      <h2>クエストエリア（このエリア内では、意図的にアクセシビリティ上の問題を発生させています）</h2>
+    </div>
+    <div class="mt-8 bg-white">
+      <div class="relative z-10 bg-white border-b border-gray-900/5">
+        <div class="max-w-7xl relative mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="w-full flex items-center justify-between py-4">
+            <div class="w-full flex items-center">
+              <h3 class="shrink-0">
+                <a href="#">
+                  <span class="sr-only">Website Inc.</span>
+                  <span class="text-gray-800" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-auto" fill="currentColor" viewBox="0 0 260 56" width="260" height="56">
+                      <path
+                        d="M24.84 55.68a2.05 2.05 0 01-.49-.06 1.84 1.84 0 01-.51-.19L1.19 44.11A2.16 2.16 0 010 42.18V13.81a2.12 2.12 0 01.06-.49 2 2 0 01.26-.63 2 2 0 01.34-.42A2.42 2.42 0 011 12l.21-.12L23.88.55a2.16 2.16 0 011.92 0l22.65 11.32.21.11a2.47 2.47 0 01.41.33 2.12 2.12 0 01.29.38 2.35 2.35 0 01.27.63 2.81 2.81 0 010 .49v28.37a2.17 2.17 0 01-1.18 1.93L25.84 55.43a1.84 1.84 0 01-.51.19 2 2 0 01-.49.06zM27 26.49v23.56l18.4-9.19V17.29zM4.3 40.86l18.39 9.19V26.49L4.3 17.29zM7 13.82l17.89 8.94 17.89-8.94-17.94-8.95zM100.11 34.79l4.34-23h6.63l-7.16 32.31h-6.69L92 22.52 86.72 44.1H80l-7.13-32.27h6.63l4.37 22.92 5.31-22.92h5.63zM134.08 30.12h-12.76v8.64h15v5.34h-21.65V11.83h21.58v5.39h-14.93v7.69h12.76zM140.2 44.1V11.83h11.3q5.87 0 8.91 2.25a7.71 7.71 0 013 6.6 7.28 7.28 0 01-1.22 4.17 7.07 7.07 0 01-3.39 2.65 6.87 6.87 0 013.95 2.5 7.41 7.41 0 011.43 4.61q0 4.65-3 7t-8.47 2.44zm6.65-18.75h4.92c3.35-.06 5-1.39 5-4a3.72 3.72 0 00-1.28-3.16 6.72 6.72 0 00-4-1h-4.65zm0 4.7v8.71h5.69a5.48 5.48 0 003.67-1.12 3.83 3.83 0 001.32-3.09q0-4.44-4.59-4.5zM185.89 35.63a3.42 3.42 0 00-1.33-2.89 17.27 17.27 0 00-4.78-2.12 34.74 34.74 0 01-5.48-2.21q-5.49-3-5.49-8a7.78 7.78 0 011.47-4.66 9.7 9.7 0 014.23-3.21 16.12 16.12 0 016.2-1.15 14.58 14.58 0 016.16 1.25 9.9 9.9 0 014.2 3.54 9.21 9.21 0 011.49 5.18h-6.64a4.35 4.35 0 00-1.4-3.44 5.74 5.74 0 00-3.92-1.23 6.1 6.1 0 00-3.79 1 3.24 3.24 0 00-1.35 2.71 3.13 3.13 0 001.54 2.67 17.87 17.87 0 004.67 2q5.67 1.71 8.26 4.24a8.41 8.41 0 012.59 6.29 7.77 7.77 0 01-3.16 6.57c-2.12 1.59-5 2.38-8.54 2.38a16.46 16.46 0 01-6.78-1.36 10.71 10.71 0 01-4.66-3.73 9.59 9.59 0 01-1.61-5.5h6.67q0 5.34 6.38 5.34a6.19 6.19 0 003.7-1 3.14 3.14 0 001.37-2.67zM204.13 44.1h-6.65V11.83h6.65zM234.58 17.22h-9.88V44.1h-6.65V17.22h-9.75v-5.39h26.28zM257.78 30.12H245v8.64h15v5.34h-21.63V11.83H260v5.39h-15v7.69h12.76z"
+                      ></path>
+                    </svg>
+                  </span>
+                </a>
+              </h3>
+              <div class="w-full ml-0 flex flex-row-reverse justify-start lg:flex-row lg:justify-between lg:ml-16">
+                <div class="flex justify-center items-center ml-2 lg:ml-0">
+                  <button
+                    type="button"
+                    id="menu-btn"
+                    aria-controls="main-menu"
+                    aria-expanded="false"
+                    class="flex justify-center items-center h-10 w-10 rounded-md lg:hidden hover:bg-gray-100 focus:bg-gray-100"
+                  >
+                    <span class="sr-only">メインメニューを開閉する</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                  </button>
+                  <nav id="main-menu" class="hidden absolute top-20 right-0 z-20 bg-white rounded-md shadow-lg p-4 lg:block lg:relative lg:top-0 lg:shadow-none lg:p-0" aria-label="メインメニュー">
+                    <ul class="space-y-2 lg:flex lg:items-center lg:space-x-8 lg:space-y-0">
+                      <li>
+                        <a href="#" class="block px-4 py-2 rounded-md text-base font-bold text-gray-900 lg:inline-block hover:bg-gray-100 focus:bg-gray-100"> サービス案内 </a>
+                      </li>
+                      <li>
+                        <a href="#" class="block px-4 py-2 rounded-md text-base font-bold text-gray-900 lg:inline-block hover:bg-gray-100 focus:bg-gray-100"> 会社情報 </a>
+                      </li>
+                      <li>
+                        <a href="#" class="block px-4 py-2 rounded-md text-base font-bold text-gray-900 lg:inline-block hover:bg-gray-100 focus:bg-gray-100"> 実績紹介 </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+                <div class="shrink-0">
+                  <span
+                    id="inaccessible-btn-01"
+                    onclick="completeQuest()"
+                    class="block px-2 py-2 rounded-md text-base font-bold text-white bg-green-800 lg:px-4 hover:bg-green-900 hover:cursor-pointer"
+                  >
+                    <span class="text-sm lg:text-base">クエスト完了</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-200 py-16 px-4 lg:py-24">
+        <div class="text-center">
+          <h4 class="text-4xl font-bold text-left text-gray-900 sm:text-5xl md:text-6xl sm:text-center">
+            <span class="inline xl:inline sm:block">
+              <span class="text-indigo-800">データ駆動型経営</span>で
+            </span>
+            <span class="inline mt-0 xl:inline sm:block xl:mt-0 sm:mt-4"> ビジネスに競争力を </span>
+          </h4>
+          <p class="mt-6 max-w-md mx-auto text-base text-left text-gray-600 sm:text-lg md:mt-8 md:text-xl md:max-w-3xl md:text-center">
+            Example 株式会社のデジタル経営基盤構築サービスは、お客様のデータ駆動型経営を実現、意思決定を円滑にし、ビジネスに競争力をもたらします。
+          </p>
+          <div class="mt-6 flex flex-col sm:flex-row space-y-4 sm:justify-center sm:space-x-6 sm:space-y-0 md:mt-8">
+            <div class="rounded-md shadow">
+              <a
+                href="#"
+                class="w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-bold rounded-md text-white bg-indigo-700 hover:bg-indigo-800 md:py-4 md:text-lg md:px-8"
+              >
+                サービス詳細
+              </a>
+            </div>
+            <div class="rounded-md shadow">
+              <button
+                tabindex="-1"
+                id="inaccessible-btn-02"
+                onclick="completeQuest()"
+                class="w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-bold rounded-md text-indigo-700 bg-white hover:bg-gray-50 hover:cursor-pointer md:py-4 md:text-lg md:px-8"
+              >
+                クエスト完了
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mx-4">
+        <div class="max-w-5xl mx-auto py-16">
+          <div class="border-b border-gray-200 pb-4">
+            <h4 class="text-lg sm:text-2xl text-gray-900">新着情報</h4>
+          </div>
+          <div class="mt-6">
+            <ul class="flex flex-col space-y-8 md:space-y-6">
+              <li class="flex flex-col space-y-4 md:flex-row md:items-center md:space-x-6 md:space-y-0">
+                <div class="flex flex-wrap items-center shrink-0 md:space-x-2 md:flex-nowrap md:justify-between">
+                  <div class="shrink-0 text-sm mr-4 md:w-36 sm:text-base md:mr-0">
+                    <time datetime="2026-08-13T14:54"> 2026年8月13日 </time>
+                  </div>
+                  <div class="shrink-0 md:w-36">
+                    <span class="block text-center bg-gray-800 text-gray-50 text-xs rounded py-1 px-4 md:rounded-md md:p-2"> IR情報 </span>
+                  </div>
+                </div>
+                <div class="flex-auto">
+                  <a href="#" class="underline hover:no-underline"> 2026年度 第1四半期決算、および通期業績見通しを発表しました。 </a>
+                </div>
+              </li>
+              <li class="flex flex-col space-y-4 md:flex-row md:items-center md:space-x-6 md:space-y-0">
+                <div class="flex flex-wrap items-center shrink-0 md:space-x-2 md:flex-nowrap md:justify-between">
+                  <div class="shrink-0 text-sm mr-4 md:w-36 sm:text-base md:mr-0">
+                    <time datetime="2026-08-10T15:52"> 2026年8月10日 </time>
+                  </div>
+                  <div class="shrink-0 md:w-36">
+                    <span class="block text-center bg-gray-800 text-gray-50 text-xs rounded py-1 px-4 md:rounded-md md:p-2"> 新サービス </span>
+                  </div>
+                </div>
+                <div class="flex-auto">
+                  <a href="#" class="underline hover:no-underline"> デジタル経営基盤構築サービスに新たに中小企業向けパッケージを追加しました。 </a>
+                </div>
+              </li>
+              <li class="flex flex-col space-y-4 md:flex-row md:items-center md:space-x-6 md:space-y-0">
+                <div class="flex flex-wrap items-center shrink-0 md:space-x-2 md:flex-nowrap md:justify-between">
+                  <div class="shrink-0 text-sm mr-4 md:w-36 sm:text-base md:mr-0">
+                    <time datetime="2026-08-03T13:10"> 2026年8月3日 </time>
+                  </div>
+                  <div class="shrink-0 md:w-36">
+                    <span class="block text-center bg-gray-800 text-gray-50 text-xs rounded py-1 px-4 md:rounded-md md:p-2"> メディア掲載 </span>
+                  </div>
+                </div>
+                <div class="flex-auto">
+                  <a href="#" class="underline hover:no-underline"> ニューズマンスリー日本版 「世界が尊敬する日本人500人」 に当社代表、経営寺花子が選出されました。 </a>
+                </div>
+              </li>
+              <li class="flex flex-col space-y-4 md:flex-row md:items-center md:space-x-6 md:space-y-0">
+                <div class="flex flex-wrap items-center shrink-0 md:space-x-2 md:flex-nowrap md:justify-between">
+                  <div class="shrink-0 text-sm mr-4 md:w-36 sm:text-base md:mr-0">
+                    <time datetime="2026-07-27T11:04"> 2026年7月27日 </time>
+                  </div>
+                  <div class="shrink-0 md:w-36">
+                    <span class="block text-center bg-gray-800 text-gray-50 text-xs rounded py-1 px-4 md:rounded-md md:p-2"> イベント情報 </span>
+                  </div>
+                </div>
+                <div class="flex-auto">
+                  <a href="#" class="underline hover:no-underline"> DX 博覧会 2026 への出展が決定しました。 </a>
+                </div>
+              </li>
+              <li class="flex flex-col space-y-4 md:flex-row md:items-center md:space-x-6 md:space-y-0">
+                <div class="flex flex-wrap items-center shrink-0 md:space-x-2 md:flex-nowrap md:justify-between">
+                  <div class="shrink-0 text-sm mr-4 md:w-36 sm:text-base md:mr-0">
+                    <time datetime="2026-07-21T10:32"> 2026年7月21日 </time>
+                  </div>
+                  <div class="shrink-0 md:w-36">
+                    <span class="block text-center bg-gray-800 text-gray-50 text-xs rounded py-1 px-4 md:rounded-md md:p-2"> 採用情報 </span>
+                  </div>
+                </div>
+                <div class="flex-auto">
+                  <a href="#" class="underline hover:no-underline"> 2026年度新卒採用サイトを公開しました。 </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mx-4">
+        <div class="max-w-5xl mx-auto py-16">
+          <div class="border-b border-gray-200 pb-4">
+            <h4 class="text-lg sm:text-2xl text-gray-900">よくある質問と答え</h4>
+          </div>
+          <div class="mt-8 divide-y divide-gray-200">
+            <details class="py-6">
+              <summary class="text-lg w-full flex justify-between items-start text-gray-400">
+                <span class="font-medium text-gray-900 w-full">御社の事業内容について教えてください</span>
+                <span class="ml-6 h-7 flex items-center shrink-0" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="faq-arrow-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+                  </svg>
+                </span>
+              </summary>
+              <div class="mt-2 pr-12">
+                <div class="text-base text-gray-600 leading-relaxed space-y-4">
+                  <p>ダミーテキスト。エドガー・アラン・ポーの短編小説。旧友アッシャーが姉妹と二人で住む屋敷に招かれた語り手が、そこに滞在するうちに体験する様々な怪奇な出来事を描く。</p>
+                </div>
+              </div>
+            </details>
+            <details class="py-6">
+              <summary class="text-lg w-full flex justify-between items-start text-gray-400">
+                <span class="font-medium text-gray-900 w-full">キーボードで操作できるボタンはどこ？</span>
+                <span class="ml-6 h-7 flex items-center shrink-0" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="faq-arrow-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+                  </svg>
+                </span>
+              </summary>
+              <div class="mt-2 pr-12">
+                <div class="text-base text-gray-600 leading-relaxed space-y-4">
+                  <p>
+                    ダミーテキスト。自分以外の全員が犠牲になった難破で岸辺に投げ出され、アメリカの浜辺、オルーノクという大河の河口近くの無人島で28年もたった一人で暮らし、最後には奇跡的に海賊船に助けられたヨーク出身の船乗りロビンソン・クルーソーの生涯と不思議で驚きに満ちた冒険についての記述。
+                  </p>
+                  <p>
+                    <span
+                      id="inaccessible-btn-03"
+                      onclick="completeQuest()"
+                      class="inline-block px-2 py-2 rounded-md text-base font-bold text-white bg-green-800 lg:px-4 hover:bg-green-900 hover:cursor-pointer"
+                    >
+                      <span class="text-sm lg:text-base">クエスト完了</span>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </details>
+            <details class="py-6">
+              <summary class="text-lg w-full flex justify-between items-start text-gray-400">
+                <span class="font-medium text-gray-900 w-full">料金体系について教えてください</span>
+                <span class="ml-6 h-7 flex items-center shrink-0" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="faq-arrow-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+                  </svg>
+                </span>
+              </summary>
+              <div class="mt-2 pr-12">
+                <div class="text-base text-gray-600 leading-relaxed space-y-4">
+                  <p>ダミーテキスト。イギリスの作家ジョージ・オーウェルのディストピアSF小説。全体主義国家によって分割統治された近未来世界の恐怖を描いている。</p>
+                </div>
+              </div>
+            </details>
+            <details class="py-6">
+              <summary class="text-lg w-full flex justify-between items-start text-gray-400">
+                <span class="font-medium text-gray-900 w-full">従業員の平均年齢は？</span>
+                <span class="ml-6 h-7 flex items-center shrink-0" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="faq-arrow-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+                  </svg>
+                </span>
+              </summary>
+              <div class="mt-2 pr-12">
+                <div class="text-base text-gray-600 leading-relaxed space-y-4">
+                  <p>ダミーテキスト。エドガー・アラン・ポーの短編小説。旧友アッシャーが姉妹と二人で住む屋敷に招かれた語り手が、そこに滞在するうちに体験する様々な怪奇な出来事を描く。</p>
+                </div>
+              </div>
+            </details>
+            <details class="py-6">
+              <summary class="text-lg w-full flex justify-between items-start text-gray-400">
+                <span class="font-medium text-gray-900 w-full">2026年度の中途採用計画は？</span>
+                <span class="ml-6 h-7 flex items-center shrink-0" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="faq-arrow-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+                  </svg>
+                </span>
+              </summary>
+              <div class="mt-2 pr-12">
+                <div class="text-base text-gray-600 leading-relaxed space-y-4">
+                  <p>
+                    ダミーテキスト。自分以外の全員が犠牲になった難破で岸辺に投げ出され、アメリカの浜辺、オルーノクという大河の河口近くの無人島で28年もたった一人で暮らし、最後には奇跡的に海賊船に助けられたヨーク出身の船乗りロビンソン・クルーソーの生涯と不思議で驚きに満ちた冒険についての記述。
+                  </p>
+                  <p>
+                    <button
+                      tabindex="-1"
+                      id="inaccessible-btn-04"
+                      onclick="completeQuest()"
+                      class="inline-block px-2 py-2 rounded-md text-base font-bold text-white bg-green-800 lg:px-4 hover:bg-green-900 hover:cursor-pointer"
+                    >
+                      <span class="text-sm lg:text-base">クエスト完了</span>
+                    </button>
+                  </p>
+                </div>
+              </div>
+            </details>
+            <details class="py-6">
+              <summary class="text-lg w-full flex justify-between items-start text-gray-400">
+                <span class="font-medium text-gray-900 w-full">本社所在地はどこですか？</span>
+                <span class="ml-6 h-7 flex items-center shrink-0" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="faq-arrow-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+                  </svg>
+                </span>
+              </summary>
+              <div class="mt-2 pr-12">
+                <div class="text-base text-gray-600 leading-relaxed space-y-4">
+                  <p>ダミーテキスト。イギリスの作家ジョージ・オーウェルのディストピアSF小説。全体主義国家によって分割統治された近未来世界の恐怖を描いている。</p>
+                </div>
+              </div>
+            </details>
+            <details class="py-6">
+              <summary class="text-lg w-full flex justify-between items-start text-gray-400">
+                <span class="font-medium text-gray-900 w-full">創業何年目ですか？</span>
+                <span class="ml-6 h-7 flex items-center shrink-0" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="faq-arrow-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+                  </svg>
+                </span>
+              </summary>
+              <div class="mt-2 pr-12">
+                <div class="text-base text-gray-600 leading-relaxed space-y-4">
+                  <p>ダミーテキスト。エドガー・アラン・ポーの短編小説。旧友アッシャーが姉妹と二人で住む屋敷に招かれた語り手が、そこに滞在するうちに体験する様々な怪奇な出来事を描く。</p>
+                </div>
+              </div>
+            </details>
+            <details class="py-6">
+              <summary class="text-lg w-full flex justify-between items-start text-gray-400">
+                <span class="font-medium text-gray-900 w-full">マジでキーボード操作できるボタンはどこ？</span>
+                <span class="ml-6 h-7 flex items-center shrink-0" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="faq-arrow-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+                  </svg>
+                </span>
+              </summary>
+              <div class="mt-2 pr-12">
+                <div class="text-base text-gray-600 leading-relaxed space-y-4">
+                  <p>ダミーテキスト。イギリスの作家ジョージ・オーウェルのディストピアSF小説。全体主義国家によって分割統治された近未来世界の恐怖を描いている。</p>
+                </div>
+              </div>
+            </details>
+            <details class="py-6">
+              <summary class="text-lg w-full flex justify-between items-start text-gray-400">
+                <span class="font-medium text-gray-900 w-full">自分の作ったウェブコンテンツをキーボードで操作してみたことあります？</span>
+                <span class="ml-6 h-7 flex items-center shrink-0" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="faq-arrow-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+                  </svg>
+                </span>
+              </summary>
+              <div class="mt-2 pr-12">
+                <div class="text-base text-gray-600 leading-relaxed space-y-4">
+                  <p>
+                    ダミーテキスト。自分以外の全員が犠牲になった難破で岸辺に投げ出され、アメリカの浜辺、オルーノクという大河の河口近くの無人島で28年もたった一人で暮らし、最後には奇跡的に海賊船に助けられたヨーク出身の船乗りロビンソン・クルーソーの生涯と不思議で驚きに満ちた冒険についての記述。
+                  </p>
+                  <p>
+                    <button
+                      id="accessible-btn"
+                      onclick="completeQuest()"
+                      class="inline-block px-2 py-2 rounded-md text-base font-bold text-white bg-green-800 lg:px-4 hover:bg-green-900 hover:cursor-pointer"
+                    >
+                      <span class="text-sm lg:text-base">クエスト完了</span>
+                    </button>
+                  </p>
+                </div>
+              </div>
+            </details>
+            <details class="py-6">
+              <summary class="text-lg w-full flex justify-between items-start text-gray-400">
+                <span class="font-medium text-gray-900 w-full">資本金はいくらですか？</span>
+                <span class="ml-6 h-7 flex items-center shrink-0" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="faq-arrow-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+                  </svg>
+                </span>
+              </summary>
+              <div class="mt-2 pr-12">
+                <div class="text-base text-gray-600 leading-relaxed space-y-4">
+                  <p>
+                    ダミーテキスト。自分以外の全員が犠牲になった難破で岸辺に投げ出され、アメリカの浜辺、オルーノクという大河の河口近くの無人島で28年もたった一人で暮らし、最後には奇跡的に海賊船に助けられたヨーク出身の船乗りロビンソン・クルーソーの生涯と不思議で驚きに満ちた冒険についての記述。
+                  </p>
+                </div>
+              </div>
+            </details>
+            <details class="py-6">
+              <summary class="text-lg w-full flex justify-between items-start text-gray-400">
+                <span class="font-medium text-gray-900 w-full">決算資料はどこで確認できますか？</span>
+                <span class="ml-6 h-7 flex items-center shrink-0" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="faq-arrow-icon">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+                  </svg>
+                </span>
+              </summary>
+              <div class="mt-2 pr-12">
+                <div class="text-base text-gray-600 leading-relaxed space-y-4">
+                  <p>
+                    ダミーテキスト。自分以外の全員が犠牲になった難破で岸辺に投げ出され、アメリカの浜辺、オルーノクという大河の河口近くの無人島で28年もたった一人で暮らし、最後には奇跡的に海賊船に助けられたヨーク出身の船乗りロビンソン・クルーソーの生涯と不思議で驚きに満ちた冒険についての記述。
+                  </p>
+                  <p>
+                    <span
+                      id="inaccessible-btn-05"
+                      onclick="completeQuest()"
+                      class="inline-block px-2 py-2 rounded-md text-base font-bold text-white bg-green-800 lg:px-4 hover:bg-green-900 hover:cursor-pointer"
+                    >
+                      <span class="text-sm lg:text-base">クエスト完了</span>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-gray-900 py-6 px-4 text-white">
+      <ul class="text-sm flex items-center gap-8 justify-center">
+        <li><a href="#" class="hover:underline">お問い合わせ</a></li>
+        <li><a href="#" class="hover:underline">プライバシーポリシー</a></li>
+      </ul>
+      <p class="mt-8 text-center"><small class="text-sm">Copyright © 2026 example Inc.</small></p>
+    </div>
+  </div>
+  <!-- ========== ここまでクエストエリア ========== -->
+
+  <!-- 成功モーダル（初期は非表示）-->
+  <dialog id="success-modal" class="fixed inset-0 m-auto z-50" aria-labelledby="success-heading">
+    <div class="bg-white rounded-md shadow-2xl max-w-lg w-full p-8 text-center">
+      <div class="text-6xl" aria-hidden="true">🎉</div>
+      <h2 id="success-heading" class="text-2xl font-bold text-gray-900 mt-4" tabindex="-1">クエスト完了！</h2>
+      <p class="text-lg text-gray-700 mt-4">お疲れさまです。クエストが完了しました。</p>
+      <div id="success-method" class="text-sm mt-4"></div>
+      <div class="mt-6">
+        <button onclick="closeSuccessModal()" class="bg-indigo-700 hover:bg-indigo-800 text-white font-semibold px-6 py-3 rounded-lg transition-colors"> 解説を読む </button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- 解説セクション（初期は非表示）-->
+  <section id="explanation" class="hidden max-w-5xl mx-auto px-4 py-12">
+    <div class="bg-white border border-gray-200 p-8">
+      <h2 id="explanation-heading" class="text-2xl font-bold" tabindex="-1">解説： 何が問題だったのか</h2>
+      <div class="mt-6 space-y-4">
+        <p>このクエストでは、キーボードで操作できないボタン（あるいはリンク）の存在がマウスを利用できないユーザーにどのような不利益を与えるのかを体験していただきました。</p>
+        <p>目的のボタンは見えているのに、キーボードだとフォーカスが移動できず、操作できない場合、ユーザーが目的を達成できないかもしれません。</p>
+        <p>このクエストではキーボードで操作できないボタンを実装するため、以下の2種類の実装をしています。</p>
+        <ul class="space-y-2 list-disc ml-6">
+          <li>button 要素で実装した上で、<code>tabindex="-1"</code> を付与してキーボードフォーカスを受け取らなくしたボタン</li>
+          <li>button 要素を使用せず、span 要素で実装したボタン</li>
+        </ul>
+        <p>
+          実際の制作現場で発生しやすい実装ミスとしては、後者の button 要素を正しく使用せず、span 要素（あるいは div 要素）で実装してしまうケースが挙げられます。HTML
+          の要素を正しく選択することが大切です。
+        </p>
+        <p>原則としてキーボードで操作できないUIが存在する場合、「<strong>達成基準 2.1.1 キーボード</strong>」を満たさなくなります。</p>
+        <p>また、span 要素で実装されたボタンなどは「ボタン」という役割が正しく伝わらないため、「<strong>達成基準 4.1.2 名前 (name) ・役割 (role) 及び値 (value)</strong>」を満たさなくなります。</p>
+        <p>それぞれの達成基準を理解するため、以下のリンクが参考になります。</p>
+        <ul class="space-y-2 list-disc ml-6">
+          <li>
+            <a class="underline hover:text-blue-900" href="https://waic.jp/translations/WCAG22/Understanding/keyboard" target="_blank"> 達成基準 2.1.1 キーボード（WCAG 2.2 解説書 日本語訳） </a>
+          </li>
+          <li>
+            <a class="underline hover:text-blue-900" href="https://waic.jp/translations/WCAG22/Understanding/name-role-value" target="_blank">
+              達成基準 4.1.2 名前 (name) ・役割 (role) 及び値 (value)（WCAG 2.2 解説書 日本語訳）
+            </a>
+          </li>
+        </ul>
+        <p>
+          なお、今回は「ボタン」を例に挙げましたが、リンク（a 要素で実装すべきもの）を同じように span や div
+          要素で実装してしまったことでキーボード操作ができなくなるケース、あるいはアコーディオンUIのような開閉UIを標準ではキーボードフォーカスを受け取らない要素で実装した場合も同じような問題が発生しますので注意しましょう。
+        </p>
+      </div>
+
+      <div class="mt-12 space-y-6">
+        <h3 class="text-xl font-bold">ポイント</h3>
+        <div class="flex gap-4">
+          <div class="shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
+            </svg>
+          </div>
+          <div class="space-y-4">
+            <h4 class="font-semibold">
+              <code>tabindex="-1"</code> が指定されたボタン
+            </h4>
+            <p>
+              ボタンを正しく button 要素で実装しても、<code>tabindex="-1"</code> を指定してしまうと、Tab キーによるフォーカス移動の対象から除外されることで、キーボードフォーカスを受け取らなくなってしまいます。
+              画面上には大きく表示されているのに（もしくはスクリーンリーダーがそこにボタンがあることを伝えてたとしても）、 キーボードユーザーからは 「<strong>操作できない</strong
+              >」ボタンになっていました。
+            </p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
+            </svg>
+          </div>
+          <div class="space-y-4">
+            <h4 class="font-semibold">span 要素で実装されたボタン</h4>
+            <p>
+              ボタンを span 要素（あるいは div 要素も同様）で実装してしまうと、Tab キーによるフォーカス移動の対象から除外されることで、キーボードフォーカスを受け取らなくなってしまいます。
+              クリックでは操作できてしまうため、このような実装をしてしまうケースはよくありますが、ボタンは button 要素を使用して実装するという基本をまずは守りましょう。
+            </p>
+            <p>またこのような実装は「ボタン」であることがスクリーンリーダーなどの支援技術に伝わらないため、そもそもそこにボタンがあることに気がつかなくなる可能性が高いです。</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"></path>
+            </svg>
+          </div>
+          <div class="space-y-4">
+            <h4 class="font-semibold">正しい実装</h4>
+            <p>HTML要素を正しく選択し、かつ（無効になっているもの、手書き動作が必須のものなど一部を除き）すべてのUI（操作パーツ）はキーボード操作可能にしましょう。</p>
+
+            <ul class="space-y-2 list-disc ml-6">
+              <li>ボタンであれば、button 要素を適切に使用し、<code>tabindex="-1"</code> を使って フォーカス順序から除外しない</li>
+              <li>リンクであれば、a 要素を適切に使用する。href 属性のない a 要素はフォーカスを受け取らないため、例えばボタンの実装に href 属性なしの a 要素を用いたりしない</li>
+              <li>ウェブページを公開する前に、キーボードによる操作確認を必ず行う</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-gray-200">
+        <ul class="flex items-center justify-between gap-4 flex-col sm:flex-row">
+          <li class="w-full flex justify-center sm:justify-start">
+            <a href="./" class="flex w-full max-w-60 gap-2 items-center justify-center px-4 py-3 border border-transparent text-base font-bold rounded-md text-white bg-indigo-700 hover:bg-indigo-800">
+              <span aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m9 9 6-6m0 0 6 6m-6-6v12a6 6 0 0 1-12 0v-3"></path>
+                </svg>
+              </span>
+              もう一度クエストを開始
+            </a>
+          </li>
+          <li class="w-full flex justify-center sm:justify-end">
+            <a
+              href={`${base}quest/2/`}
+              class="flex w-full max-w-60 gap-2 items-center justify-center px-4 py-3 border border-transparent text-base font-bold rounded-md text-white bg-indigo-700 hover:bg-indigo-800"
+            >
+              次のクエスト
+              <span aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"></path>
+                </svg>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // クエスト内のメニュー開閉
+    const menuBtn = document.getElementById("menu-btn");
+    const mainMenu = document.getElementById("main-menu");
+
+    menuBtn?.addEventListener("click", () => {
+      const isExpanded = menuBtn.getAttribute("aria-expanded") === "true";
+
+      mainMenu?.classList.toggle("hidden");
+      menuBtn.setAttribute("aria-expanded", String(!isExpanded));
+    });
+
+    // クエスト完了
+    let completed = false;
+    let isKeyboardUser = false;
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Tab" || e.key === "Enter" || e.key === " ") {
+        isKeyboardUser = true;
+      }
+    });
+
+    document.addEventListener("pointerdown", () => {
+      isKeyboardUser = false;
+    });
+
+    (window as any).completeQuest = function () {
+      if (completed) return;
+      completed = true;
+
+      const isKeyboard = isKeyboardUser && document.activeElement?.id === "accessible-btn";
+
+      const modal = document.getElementById("success-modal");
+      const methodEl = document.getElementById("success-method");
+      if (modal instanceof HTMLDialogElement && methodEl) {
+        methodEl.innerHTML = isKeyboard
+          ? `<p class="text-green-800 font-semibold">キーボードで達成しました！</p>
+           <p class="mt-1">キーボードで操作可能なクエスト完了ボタンを探し出しましたね！</p>`
+          : `<p class="text-orange-800 font-semibold">マウスで達成しました。</p>
+           <p class="mt-1">次はぜひキーボードだけで再挑戦してみましょう。</p>`;
+        modal.showModal();
+        document.getElementById("success-heading")?.focus();
+      }
+    };
+
+    // ダイアログを閉じるのと、解説セクションの表示
+    (window as any).closeSuccessModal = function () {
+      const modal = document.getElementById("success-modal");
+      const explanation = document.getElementById("explanation");
+      const explanationHeading = document.getElementById("explanation-heading");
+      if (modal instanceof HTMLDialogElement) {
+        modal.close();
+      }
+      if (explanation) {
+        explanation.classList.remove("hidden");
+        explanationHeading?.focus();
+      }
+    };
+  </script>
+</Layout>

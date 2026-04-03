@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@layer utilities {
+  *:focus-visible {
+    @apply outline-2 outline-blue-600 outline-offset-2;
+  }
+
+  .faq-arrow-icon {
+    @apply size-6 rotate-0;
+  }
+
+  details[open] .faq-arrow-icon {
+    @apply rotate-180;
+  }
+
+  .faq-arrow-icon, details[open] .faq-arrow-icon {
+    @apply transition-transform;
+  }
+
+  dialog::backdrop {
+    @apply bg-gray-900/50;
+  }
+
+  code {
+    @apply inline-block text-sm bg-gray-100 px-1 rounded;
+  }
+}
